@@ -15,14 +15,20 @@ services:
 
   cron_job:
     << : *peatio-daemon
+    environment:
+    - VAULT_TOKEN=${PEATIO_CRYPTO_VAULT_TOKEN}
     command: bash -c "bin/link_config && bundle exec ruby lib/daemons/daemons.rb cron_job"
 
   deposit:
     << : *peatio-daemon
+    environment:
+    - VAULT_TOKEN=${PEATIO_CRYPTO_VAULT_TOKEN}
     command: bash -c "bin/link_config && bundle exec ruby lib/daemons/daemons.rb deposit"
 
   upstream:
     << : *peatio-daemon
+    environment:
+    - VAULT_TOKEN=${PEATIO_UPSTREAM_VAULT_TOKEN}
     command: bash -c "bin/link_config && bundle exec ruby lib/daemons/daemons.rb upstream"
 
   deposit_coin_address:
